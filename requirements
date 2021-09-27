@@ -1,2 +1,4 @@
 pandas
 python==3.8
+gunicorn
+flask
