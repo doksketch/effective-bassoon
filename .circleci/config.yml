@@ -1,30 +1,24 @@
 version: 2
 
- jobs:
-   build:
-     docker:
-       - image: circleci/python:3.6.4
-   deploy:
-     docker:
-       - image: circleci/python:3.6.4
-         auth:
-           username: mydockerhub-user
-           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-     steps:
-       - checkout
-       - run:
-           name: Deploy Master to Heroku
-           command: |
-             git push https://heroku:4732e5e0-f656-47a5-ada1-b7b4d804bb26@git.heroku.com/some-appp.git master
+jobs:
+  deploy:
+    docker:
+      - image: circleci/python:3.6.4
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    steps:
+      - checkout
+      - run:
+          name: Deploy Master to Heroku
+          command: |
+            git push https://heroku:4732e5e0-f656-47a5-ada1-b7b4d804bb26@git.heroku.com/some-appp.git master
 
- workflows:
+workflows:
    version: 2
    build-deploy:
      jobs:
-       - build
        - deploy:
-           requires:
-             - build # only run deploy-via-git job if the build job has completed
            filters:
              branches:
                only: master # only run deploy-via-git job on master branch
