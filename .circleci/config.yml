@@ -37,6 +37,3 @@ workflows:
        - deploy:
            requires:
              - build
-           filters:
-             branches:
-               only: main # only run deploy-via-git job on main branch
